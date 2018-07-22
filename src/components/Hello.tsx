@@ -8,7 +8,7 @@ export interface HelloProps { compiler: string; framework: string; }
 export class Hello extends React.Component<HelloProps, {}> {
     render() {
         return <div>
-             <h1>Hello75611 from {this.props.compiler} and {this.props.framework}!</h1>
+             <h1>Leave a comment on any page!</h1>
              <InputForm />
         </div>
     }

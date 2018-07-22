@@ -1,4 +1,5 @@
 import * as React from "react";
+import 'whatwg-fetch';
 
 export interface InputFormProps { }
 export interface InputFormState { url: string, comments: string }
@@ -16,11 +17,31 @@ export class InputForm extends React.Component<InputFormProps, InputFormState> {
         };
     }
 
-    onSubmit(ev: React.FormEvent) {
+    async onSubmit(ev: React.FormEvent) {
         ev.preventDefault();
         // TODO: validation of url
         console.log("onSubmit ", this.state.url);
         console.log("comments: ", this.state.comments);
+        try {
+            const res: Response = await fetch("/spray", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    url: this.state.url,
+                    comments: this.state.comments,
+                })
+            });
+            if (res.status !== 200) {
+                console.error("Error:", res.status);
+            } else {
+                console.log("OK!");
+            }
+        }
+        catch (err) { // network errors
+            console.error(err);
+        }
     }
 
     onURLChange(ev: any) {

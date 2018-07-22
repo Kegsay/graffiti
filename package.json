@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "serve": "webpack-serve",
+    "watch": "webpack -w",
+    "start": "concurrently -k -p \"[{name}]\" -n \"Webpack,HTTP-Server\" -c \"cyan.bold,green.bold\"  \"npm run watch\" \"npm run serve\" "
   },
   "repository": {
     "type": "git",
@@ -20,7 +22,8 @@
     "@types/react": "^16.3.18",
     "@types/react-dom": "^16.0.6",
     "react": "^16.4.1",
-    "react-dom": "^16.4.1"
+    "react-dom": "^16.4.1",
+    "whatwg-fetch": "^2.0.4"
   },
   "devDependencies": {
     "awesome-typescript-loader": "^5.1.0",
@@ -29,10 +32,5 @@
     "typescript": "^2.9.2",
     "webpack-cli": "^3.0.8",
     "webpack-serve": "^1.0.4"
-  },
-  "scripts": {
-    "serve": "webpack-serve",
-    "watch": "webpack -w",
-    "start": "concurrently -k -p \"[{name}]\" -n \"Webpack,HTTP-Server\" -c \"cyan.bold,green.bold\"  \"npm run watch\" \"npm run serve\" "
   }
 }
