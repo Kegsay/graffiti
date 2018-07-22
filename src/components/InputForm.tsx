@@ -6,7 +6,7 @@ export interface InputFormState { url: string, comments: string }
 
 export class InputForm extends React.Component<InputFormProps, InputFormState> {
 
-    constructor(props: any, context: any) {
+    constructor(props: InputFormProps, context: InputFormState) {
         super(props, context);
         this.onSubmit = this.onSubmit.bind(this);
         this.onURLChange = this.onURLChange.bind(this);
@@ -23,7 +23,7 @@ export class InputForm extends React.Component<InputFormProps, InputFormState> {
         console.log("onSubmit ", this.state.url);
         console.log("comments: ", this.state.comments);
         try {
-            const res: Response = await fetch("/spray", {
+            const resPromise: Promise<Response> = fetch("/spray", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -33,6 +33,7 @@ export class InputForm extends React.Component<InputFormProps, InputFormState> {
                     comments: this.state.comments,
                 })
             });
+            const res: Response = await resPromise;
             if (res.status !== 200) {
                 console.error("Error:", res.status);
             } else {
